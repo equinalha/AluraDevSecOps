@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - meu_mongodb
+    environment:
+      - MONGODB_URI=mongodb://meu_mongodb:27017
+    networks:
+      - alura
+
+  meu_mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - alura
+
+volumes:
+  mongo-data:
+
+networks:
+  alura:

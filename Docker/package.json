@@ -1,0 +1,26 @@
+{
+  "name": "cursodevsecops",
+  "version": "1.0.0",
+  "description": "Atividade da Semana 3 do Curso DevSecOps Alura - MPPR",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/equinalha/AluraDevSecOps.git"
+  },
+  "author": "Eduardo Quinalha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/equinalha/AluraDevSecOps/issues"
+  },
+  "homepage": "https://github.com/equinalha/AluraDevSecOps#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.0",
+    "pug": "^3.0.3"
+  }
+}
