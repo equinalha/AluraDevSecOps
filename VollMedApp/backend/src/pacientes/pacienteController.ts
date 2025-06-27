@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/consistent-type-imports */
-/* eslint-disable @typescript-eslint/semi */
-// import { type Request, type Response } from 'express'
+import { sanitizacaoPaciente } from './pacienteSanitizations'
 import { Request, Response } from 'express';
 import { Paciente } from './pacienteEntity.js'
 import { AppDataSource } from '../data-source.js'
@@ -37,7 +34,8 @@ export const criarPaciente = async (
 ): Promise<void> => {
   try {
     const pacienteData = req.body
-
+    const pacienteSanitizado: Paciente = sanitizacaoPaciente(pacienteData)
+    console.log(pacienteSanitizado)
     let {
       cpf,
       nome,
@@ -51,7 +49,7 @@ export const criarPaciente = async (
       imagemUrl,
       imagem,
       historico
-    } = pacienteData
+    } = pacienteSanitizado
 
     if (!CPFValido(cpf)) {
       throw new AppError('CPF Inválido!')
