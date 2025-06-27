@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+/* eslint-disable @typescript-eslint/semi */
 // import { type Request, type Response } from 'express'
 import { Request, Response } from 'express';
 import { Paciente } from './pacienteEntity.js'
@@ -14,9 +17,9 @@ export const consultaPorPaciente = async (
   res: Response
 ): Promise<void> => {
   const { userInput } = req.query;
-  const query = `SELECT * FROM paciente WHERE nome = '${userInput}'`;
+  const query = 'SELECT * FROM paciente WHERE nome = ?';
   try {
-    const listaPacientes = await AppDataSource.manager.query(query);
+    const listaPacientes = await AppDataSource.manager.query(query, [userInput]);
     if (listaPacientes.length === 0) {
       res.status(404).json('Paciente não encontrado!');
     } else {
@@ -27,7 +30,6 @@ export const consultaPorPaciente = async (
     res.status(500).json({ message: 'Erro interno do servidor' });
   }
 }
-
 
 export const criarPaciente = async (
   req: Request,
