@@ -1,5 +1,5 @@
 /* eslint-disable no-prototype-builtins */
-export function sanitizacaoPaciente (paciente): any {
+export function sanitizacaoPaciente (paciente) {
   const attributeSanitizations = {
     cpf: (value) => value.toString().replace(/[^0-9]/g, ''),
     nome: (value) => value.replace(/[^a-zA-Z-à-ú\s'-]/g, ''),

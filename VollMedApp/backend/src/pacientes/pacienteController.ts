@@ -1,4 +1,6 @@
-import { sanitizacaoPaciente } from './pacienteSanitizations'
+/* eslint-disable prefer-const */
+/* eslint-disable no-trailing-spaces */
+import { sanitizacaoPaciente } from './pacienteSanitizations.js'
 import { Request, Response } from 'express';
 import { Paciente } from './pacienteEntity.js'
 import { AppDataSource } from '../data-source.js'
@@ -8,6 +10,7 @@ import { mapeiaPlano } from '../utils/planoSaudeUtils.js'
 import { Consulta } from '../consultas/consultaEntity.js'
 import { AppError, Status } from '../error/ErrorHandler.js'
 import { encryptPassword } from '../utils/senhaUtils.js'
+import { pacienteSchema } from './pacienteYupSchema.js';
 
 export const consultaPorPaciente = async (
   req: Request,
@@ -34,8 +37,13 @@ export const criarPaciente = async (
 ): Promise<void> => {
   try {
     const pacienteData = req.body
-    const pacienteSanitizado: Paciente = sanitizacaoPaciente(pacienteData)
+    const pacienteSanitizado = sanitizacaoPaciente(pacienteData)
     console.log(pacienteSanitizado)
+    
+    let planosSaude: any = pacienteSanitizado.planosSaude
+
+    await pacienteSchema.validate(pacienteSanitizado); 
+
     let {
       cpf,
       nome,
@@ -45,7 +53,6 @@ export const criarPaciente = async (
       possuiPlanoSaude,
       endereco,
       telefone,
-      planosSaude,
       imagemUrl,
       imagem,
       historico
@@ -96,8 +103,9 @@ export const criarPaciente = async (
     }
 
     await AppDataSource.manager.save(Paciente, paciente)
+    const { senha: _senha, cpf: _cpf, ...pacienteSemDadosSensiveis } = paciente
 
-    res.status(202).json(paciente)
+    res.status(202).json(pacienteSemDadosSensiveis)
   } catch (error) {
     if (error.name === 'ValidationError') {
       res.status(400).json({ message: error.message })
@@ -174,6 +182,8 @@ export const atualizarPaciente = async (
   req: Request,
   res: Response
 ): Promise<void> => {
+  let planosSaude: any = req.body.planosSaude;
+
   let {
     nome,
     email,
@@ -181,7 +191,6 @@ export const atualizarPaciente = async (
     estaAtivo,
     telefone,
     possuiPlanoSaude,
-    planosSaude,
     cpf,
     imagemUrl,
     imagem,

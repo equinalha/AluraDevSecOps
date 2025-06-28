@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"module": "ES2022",
+        "strict": false,
 		"lib": [
 			"ES6"
 		],
@@ -9,7 +10,7 @@
 		],
 		"outDir": "./build",
 		"allowJs": true,
-		"target": "es2017",
+		"target": "es2018",
 		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
