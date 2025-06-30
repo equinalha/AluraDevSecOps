@@ -71,3 +71,7 @@ Blue/Green deployment. Neste padrão de release, a nova aplicação (green) sobe
         - A injeção de código SQL, por exemplo, poderia levar o atacante a conseguir executar ações a nível de sistema operacional, colocando a si mesmo como administrador do sistema e executando ações administrativas em nome de outros usuários
     - c: Tipo de atacante
         - Atacantes externos interessados em prejudicar a imagem da empresa, obter acesso privilegiado e roubo de informações
+
+## Semana4
+### Validações de API
+[pacienteRoutes.ts](./VollMedApp/backend/src/pacientes/pacienteRoutes.ts)
